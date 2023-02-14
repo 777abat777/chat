@@ -27,7 +27,7 @@ body{
 }
 .Wrapper{
    display: grid;
-   grid-template-columns: max-content auto;
+   grid-template-columns: minmax(min-content, max-content) auto;
    height: 100vh;
 }
 

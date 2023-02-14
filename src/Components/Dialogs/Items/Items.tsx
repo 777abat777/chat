@@ -15,13 +15,17 @@ type Props = {}
 
 
 const Items = (props: Props) => {
-
+   let { store } = useStore()
    let { userId } = useParams()
+   store.currentDialog = userId
    if (!userId) {
       userId = "1"
+      store.currentDialog = userId
    }
-   let { store } = useStore()
+
+
    let interval: ReturnType<typeof setInterval> | undefined;
+
    useEffect(() => {
       interval = setInterval(store.makeRandom, 3000)
    }, store.users)

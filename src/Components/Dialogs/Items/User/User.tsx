@@ -17,8 +17,8 @@ const User = ({ id, message, messageCount, name, online, photo, time, currentId 
          </div>
          <div className={cnUserCard("Front")}>
             <h2 className={cnUserCard("Title")}>{name}</h2>
-            {message.typing && <p className={cnUserCard("Message")}>{message.value}</p>}
-            {!message.typing && <p className={cnUserCard("Message", { typing: 'active' })}> <span></span> Печатает</p>}
+            {!message.typing && <p className={cnUserCard("Message")}>{message.value}</p>}
+            {message.typing && <p className={cnUserCard("Message", { typing: 'active' })}> <span></span> Печатает</p>}
          </div>
          <div className={cnUserCard("Right")}>
             <p className={cnUserCard('Time')}>{time}</p>

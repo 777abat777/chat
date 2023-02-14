@@ -1,7 +1,8 @@
 import { withNaming } from '@bem-react/classname';
-import React from 'react'
 import { MessageType } from '../../../store/Store';
 import { useStore } from '../../../store/UseStore';
+import { observer } from 'mobx-react-lite';
+import { useParams } from 'react-router-dom';
 const cn = withNaming({ n: '', e: '__', m: '_', v: '_' })
 
 const cnChat = cn('Chat');
@@ -12,11 +13,18 @@ type Props = {}
 
 const Chat = (props: Props) => {
    let { store } = useStore()
+   let { userId } = useParams()
+   if (!userId) {
+      userId = "1"
+   }
+
+   let user = store.users.find(el => el.id === Number(userId))
+
    return (
       <div className={cnChat()}>
          <header className={cnChat('Header')}>
-            <h2 className={cnChat("Title")}>Анастасия Александровна</h2>
-            <h3 className={cnChat("Typing")}> <span></span> Печатает</h3>
+            <h2 className={cnChat("Title")}>{user?.name}</h2>
+            {user?.message.typing && <h3 className={cnChat("Typing")}> <span></span> Печатает</h3>}
          </header>
          <section className={cnChatBody()}>
             {store.messages.map(el => <Message key={el.id} message={el.message} author={el.author} date={el.date} id={el.id} />)}
@@ -29,7 +37,7 @@ const Chat = (props: Props) => {
    )
 }
 
-export default Chat
+export default observer(Chat)
 
 
 const Message = ({ author, date, id, message }: MessageType) => {

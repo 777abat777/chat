@@ -47,22 +47,23 @@ const initialStateUsers: UserType[] = [
    { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: true }, messageCount: 0, online: true, time: "10:43", photo: userLogo1, id: 1 },
    { name: 'Анастасия Александровна', message: { value: 'Доступна новая веб-версия... ', typing: false }, messageCount: 10, online: true, time: "10:43", photo: userLogo2, id: 2 },
    { name: 'Диалог М', message: { value: 'Добрый день!', typing: true }, messageCount: 2, online: true, time: "10:43", photo: userLogo3, id: 3 },
-   { name: 'Андрей В.', message: { value: 'И слова, получив текст широко известно', typing: true }, messageCount: 0, online: false, time: "17:43", photo: userLogo4, id: 4 },
+   { name: 'Андрей В.', message: { value: 'И слова, получив текст широко известно', typing: false }, messageCount: 0, online: false, time: "17:43", photo: userLogo4, id: 4 },
    { name: 'Анна', message: { value: 'Документы будут готовы к вечеру', typing: true }, messageCount: 2, online: true, time: "10:43", photo: userLogo1, id: 5 },
    { name: 'Игорь Хоменко', message: { value: 'Документы будут готовы к вечеру', typing: false }, messageCount: 2, online: true, time: "10:43", photo: userLogo1, id: 6 },
    { name: 'Алина Викторовна', message: { value: 'Документы будут готовы к вечеру', typing: false }, messageCount: 2, online: true, time: "20:43", photo: userLogo1, id: 7 },
    { name: 'Вова', message: { value: 'Создающие собственные варианты ', typing: true }, messageCount: 2, online: true, time: "10:43", photo: userLogo1, id: 8 },
-   { name: 'Алексей курочкин', message: { value: 'Документы будут готовы к вечеру', typing: true }, messageCount: 0, online: false, time: "10:43", photo: userLogo1, id: 9 },
-   { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: false }, messageCount: 2, online: true, time: "10:43", photo: userLogo1, id: 10 },
-   { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: false }, messageCount: 0, online: true, time: "10:43", photo: userLogo2, id: 11 },
-   { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: true }, messageCount: 2, online: false, time: "10:43", photo: userLogo1, id: 12 },
-   { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: false }, messageCount: 0, online: true, time: "10:43", photo: userLogo2, id: 13 },
+   { name: 'Алексей курочкин', message: { value: 'Документы будут готовы к вечеру', typing: false }, messageCount: 0, online: false, time: "10:43", photo: userLogo1, id: 9 },
+   { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: true }, messageCount: 2, online: true, time: "10:43", photo: userLogo1, id: 10 },
+   { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: true }, messageCount: 0, online: true, time: "10:43", photo: userLogo2, id: 11 },
+   { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: false }, messageCount: 2, online: false, time: "10:43", photo: userLogo1, id: 12 },
+   { name: 'Дмитрий Анатольевич', message: { value: 'Документы будут готовы к вечеру', typing: true }, messageCount: 0, online: true, time: "10:43", photo: userLogo2, id: 13 },
 ]
 export class Store {
    users: UserType[] = initialStateUsers
    messages: MessageType[] = initialMessage
    saerchValue = ''
    unreadDialogs = this.accumDialogsCount()
+   currentDialog: string | undefined = "1"
    constructor() {
       makeAutoObservable(this)
    }
@@ -83,13 +84,16 @@ export class Store {
    }
    makeRandom = () => {
       let randomUserId = getRandomInt(0, this.users.length)
-      console.log('work')
       this.users.find((el) => {
-         if (el.id == randomUserId) {
+         if (el.id === randomUserId) {
             el.online = !el.online
-            el.message.typing = !el.message.typing
-            el.messageCount++
-            this.unreadDialogs = this.accumDialogsCount()
+            if (el.online) {
+               el.message.typing = true
+               el.messageCount++
+               this.unreadDialogs = this.accumDialogsCount()
+            } else {
+               el.message.typing = false
+            }
          }
       })
    }

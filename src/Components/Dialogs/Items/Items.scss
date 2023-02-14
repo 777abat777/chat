@@ -1,3 +1,7 @@
+$first-breakpoint: 1000px;
+
+
+
 .Items{
    
    &__Header{
@@ -36,7 +40,11 @@
 .User-Card{
    padding: 11px 14px;
    display: flex;
+   transition: 0.4s;
    cursor: pointer;
+   &:hover{
+      background-color: #bec5ce;
+   }
    &__Left{
       position: relative;
    }
@@ -63,6 +71,7 @@
       justify-content: space-around;
       padding: 0px 0px 0px 14px;
       font-size: 14px;
+      width: 100%;
    }
    &__Title{
       font-weight: 700;
@@ -79,6 +88,12 @@
       overflow: hidden; 
       text-overflow: ellipsis; 
       column-gap: 20px;
+ 
+      @media (max-width: $first-breakpoint){
+         &{
+            max-width: 100px;
+         }
+      }
       &_typing_active {
             span{
                display: block;
@@ -122,7 +137,6 @@
    }
 
    &__Right{
-      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
@@ -156,6 +170,9 @@
       }
       & span,span::before,span::after{
          background-color: #FFFFFF;
+      }
+      &:hover{
+         background: #4290DE;
       }
    }
 }

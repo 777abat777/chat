@@ -1,8 +1,15 @@
+$maxWidth: 1800;
+
+@mixin adaptiv-value($property, $startSize, $minSize) {
+   $addSize: $startSize - $minSize;
+      #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+}
+
 .SideBar{
-   width: 247px;
+   @include adaptiv-value("width",247,100);
    background: #2680D9;
    height: 100%;
-   padding: 40px 0px 20px 0px;
+   padding: 40px 20px 20px 20px;
    display: flex;
    flex-direction: column;
    align-items: center;
@@ -23,9 +30,12 @@
       border-radius: 4px;
       width: 40px;
       transition: 1s;
+      &:hover{
+         background: #f7f7f7;
+      }
    }
    &__Button_state_open{
-      width: 85%;
+      width: 100%;
       & img{
          transform: rotate(-180deg);
       }
@@ -70,6 +80,7 @@
       letter-spacing: 0.1px;
       margin-bottom: 10px;
       transition: 1s;
+      white-space: nowrap;
    }
    &__Status{
       font-size: 14px;
@@ -97,14 +108,19 @@
       display: flex;
       justify-content: center;
       overflow: hidden;
+      margin: 0 -20px;
+      &:hover{
+         background: #1f22244d;
+      }
       & img{
-         margin-right: 20px;
+         @include adaptiv-value("margin-right",20,3);
       }
       & a{
          display: flex;
          align-items: center;
          width: 100%;
-         padding: 28px 0px 28px 28px;
+         padding: 28px 0px 28px 0px;
+         @include adaptiv-value("padding-left",28,1);
          font-weight: 700;
          font-size: 14px;
          letter-spacing: 0.1px;
@@ -113,25 +129,32 @@
       }
       & span{
          transition: 1s;
+         width: 100%;
       }
       & mark{
          background: #F53648;
          box-shadow: 0px 3px 7px rgba(17, 68, 117, 0.35);
-         border-radius: 11px;
-         width:27px;
-         height:22px;
+         border-radius: 100%;
+         padding: 0px 7px;
          text-align: center;
          line-height: 22px;
          font-size: 12px;
          letter-spacing: 0.4px;
          color: #FFFFFF;
-         margin-left: 60px;
+         margin-right: 20px;
+         margin-left: 5px;
       }
    }
    &__Item_status_current{
       background: #1A69B8;
+      &:hover{
+         background: #1A69B8;
+      }
    }
    &_state_close{
+      & a{
+         padding: 28px 0px 28px 28px;
+      }
       & span{
          opacity: 0;
          white-space: nowrap;
@@ -143,8 +166,7 @@
          margin-right: 0px;
       }
       & mark{
-         width: 14px;
-         height: 14px;
+         padding: 1px 3px;
          border-radius: 100%;
          font-size: 8px;
          line-height: 14px;
