@@ -3,13 +3,13 @@ import { observer } from 'mobx-react'
 import './App.scss';
 import SideBar from './Components/SideBar/SideBar';
 import Dialogs from './Components/Dialogs/Dialogs';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom'
 import Settings from './Components/Settings/Settings';
 
 function App() {
    return (
       <div className="Wrapper">
-         <BrowserRouter>
+         <HashRouter>
             <SideBar />
             <Routes>
                <Route path='/' element={<Dialogs />} />
@@ -17,7 +17,7 @@ function App() {
                <Route path='/dialogs' element={<Dialogs />} />
                <Route path='/settings' element={<Settings />} />
             </Routes>
-         </BrowserRouter>
+         </HashRouter>
       </div>
    );
 }

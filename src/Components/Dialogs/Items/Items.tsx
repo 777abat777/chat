@@ -12,8 +12,6 @@ const cnUsers = cn('Users');
 
 type Props = {}
 
-
-
 const Items = (props: Props) => {
    let { store } = useStore()
    let { userId } = useParams()
@@ -23,12 +21,12 @@ const Items = (props: Props) => {
       store.currentDialog = userId
    }
 
-
    let interval: ReturnType<typeof setInterval> | undefined;
 
    useEffect(() => {
       interval = setInterval(store.makeRandom, 3000)
    }, store.users)
+
    useEffect(() => {
       return () => {
          clearInterval(interval)
@@ -38,7 +36,9 @@ const Items = (props: Props) => {
 
    let users
    let searchValue = store.saerchValue
-   if (searchValue === "") { users = store.users }
+   if (searchValue === "") {
+      users = store.users
+   }
    else {
       users = store.users.filter(el => el.name.toLowerCase().includes(searchValue.toLocaleLowerCase()))
    }
